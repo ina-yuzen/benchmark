@@ -40,6 +40,53 @@ long concat_using_memmove() {
   return (b.tv_sec * 1e6 + b.tv_usec) - (a.tv_sec * 1e6 + a.tv_usec);
 }
 
+long concat_using_strcat_without_malloc() {
+  struct timeval a, b;
+  char k[5 * COUNT + 1];
+  strcpy(k, "abcde");
+  int i;
+
+  gettimeofday(&a, NULL);
+  for (i = 0; i < COUNT; i++) {
+    strcat(k, "abcde");
+  }
+  gettimeofday(&b, NULL);
+
+  return (b.tv_sec * 1e6 + b.tv_usec) - (a.tv_sec * 1e6 + a.tv_usec);
+}
+
+long concat_using_memmove_without_malloc() {
+  struct timeval a, b;
+  char k[5 * COUNT + 1];
+  strcpy(k, "abcde");
+  int i;
+
+  gettimeofday(&a, NULL);
+  for (i = 0; i < COUNT; i++) {
+    int len = strlen(k);
+    memmove(k + len, "abcde", 6);
+  }
+  gettimeofday(&b, NULL);
+  
+  return (b.tv_sec * 1e6 + b.tv_usec) - (a.tv_sec * 1e6 + a.tv_usec);
+}
+
+long concat_using_memmove_without_strlen() {
+  struct timeval a, b;
+  char k[5 * COUNT + 1];
+  strcpy(k, "abcde");
+  int i;
+
+  gettimeofday(&a, NULL);
+  for (i = 0; i < COUNT; i++) {
+    int len = (i + 1) * 5;
+    memmove(k + len, "abcde", 6);
+  }
+  gettimeofday(&b, NULL);
+  
+  return (b.tv_sec * 1e6 + b.tv_usec) - (a.tv_sec * 1e6 + a.tv_usec);
+}
+
 long concat_using_sprintf() {
   struct timeval a, b;
   char* k = (char*)malloc(6);
@@ -55,11 +102,4 @@ long concat_using_sprintf() {
   gettimeofday(&b, NULL);
 
   return (b.tv_sec * 1e6 + b.tv_usec) - (a.tv_sec * 1e6 + a.tv_usec);
-}
-
-int main() {
-  printf("%ld\n", concat_using_strcat());
-  printf("%ld\n", concat_using_memmove());
-
-  return 0;
 }
