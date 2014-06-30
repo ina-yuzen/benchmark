@@ -43,13 +43,15 @@ int main() {
 
   printf("Try %d times for each way...\n", times);
 
-  int i;
-  for (i = 0; i < times; i++) {
+  for (int i = 0; i < times; i++) {
+    printf("Processing %d times", i);
+    fflush(stdout);
     strcat[i] = concat_using_strcat();
     memmove[i] = concat_using_memmove();
     strcat_wm[i] = concat_using_strcat_without_malloc();
     memmove_wm[i] = concat_using_memmove_without_malloc();
     memmove_ws[i] = concat_using_memmove_without_strlen();
+    printf("\033[2K\r");
   }
 
   sort(strcat, strcat + times);
@@ -58,19 +60,13 @@ int main() {
   sort(memmove_wm, memmove_wm + times);
   sort(memmove_ws, memmove_ws + times);
 
-  puts("Done. Results are in micro seconds.");
+  puts("Done. Results are in micro seconds.\n");
 
   print_result(times, strcat, "strcat()");
   print_result(times, memmove, "memmove()");
   print_result(times, strcat_wm, "strcat() without memory allocation");
   print_result(times, memmove_wm, "memmove() without memory allocation");
   print_result(times, memmove_ws, "memmove() without memory allocation nor count by strlen()");
-
-  // printf("%ld\n", concat_using_strcat());
-  // printf("%ld\n", concat_using_memmove());
-  // printf("%ld\n", concat_using_strcat_without_malloc());
-  // printf("%ld\n", concat_using_memmove_without_malloc());
-  // printf("%ld\n", concat_using_memmove_without_strlen());
 
   return 0;
 }
