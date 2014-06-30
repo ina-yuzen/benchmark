@@ -104,7 +104,7 @@ public class Bench {
         System.out.println("Median: \t" + (times % 2 == 0 ? (array[times / 2] + array[times / 2 - 1]) / 2.0d : array[times / 2]));
     }
 
-    public static String getMemoryInfo() {
+    private static String getMemoryInfo() {
         DecimalFormat f1 = new DecimalFormat("#,###KB");
         DecimalFormat f2 = new DecimalFormat("##.#");
         long free = Runtime.getRuntime().freeMemory() / 1024;
@@ -112,10 +112,6 @@ public class Bench {
         long max = Runtime.getRuntime().maxMemory() / 1024;
         long used = total - free;
         double ratio = (used * 100 / (double) total);
-        String info =
-                "Java memory info: total=" + f1.format(total) + "、" +
-                        "used=" + f1.format(used) + " (" + f2.format(ratio) + "%)、" +
-                        "max=" + f1.format(max);
-        return info;
+        return String.format("Java memory info: total=%s、used=%s (%s%%)、max=%s", f1.format(total), f1.format(used), f2.format(ratio), f1.format(max));
     }
 }
