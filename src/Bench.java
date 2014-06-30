@@ -113,8 +113,8 @@ public class Bench {
         long used = total - free;
         double ratio = (used * 100 / (double) total);
         String info =
-                "Java memory info: total=" + f1.format(total) + "、" +
-                        "used=" + f1.format(used) + " (" + f2.format(ratio) + "%)、" +
+                "Java memory info: total=" + f1.format(total) + ", " +
+                        "used=" + f1.format(used) + " (" + f2.format(ratio) + "%), " +
                         "max=" + f1.format(max);
         return info;
     }
