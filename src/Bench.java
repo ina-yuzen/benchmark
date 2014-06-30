@@ -112,6 +112,6 @@ public class Bench {
         long max = Runtime.getRuntime().maxMemory() / 1024;
         long used = total - free;
         double ratio = (used * 100 / (double) total);
-        return String.format("Java memory info: total=%s、used=%s (%s%%)、max=%s", f1.format(total), f1.format(used), f2.format(ratio), f1.format(max));
+        return String.format("Java memory info: total=%s, used=%s (%s%%), max=%s", f1.format(total), f1.format(used), f2.format(ratio), f1.format(max));
     }
 }
