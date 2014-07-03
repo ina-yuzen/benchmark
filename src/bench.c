@@ -86,20 +86,3 @@ long concat_using_memmove_without_strlen() {
   
   return (b.tv_sec * 1e6 + b.tv_usec) - (a.tv_sec * 1e6 + a.tv_usec);
 }
-
-long concat_using_sprintf() {
-  struct timeval a, b;
-  char* k = (char*)malloc(6);
-  strcpy(k, "abcde");
-  int i;
-
-  gettimeofday(&a, NULL);
-  for (i = 0; i < COUNT; i++) {
-    char* newk = (char*) realloc(k, strlen(k) + 6);
-    sprintf(newk, "%s%s", k, "abcde");
-    k = newk;
-  }
-  gettimeofday(&b, NULL);
-
-  return (b.tv_sec * 1e6 + b.tv_usec) - (a.tv_sec * 1e6 + a.tv_usec);
-}
